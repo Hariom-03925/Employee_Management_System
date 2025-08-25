@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-form">
+            <h1>Admin Login</h1>
+            <p class="login-subtitle">Employee Management System</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+            </form>
+            <div class="login-info">
+                <p><strong>Demo Credentials:</strong></p>
+                <p>Email: admin@company.com</p>
+                <p>Password: admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="hidden">
+        <!-- Navigation Header -->
+        <header class="navbar">
+            <div class="navbar-brand">
+                <h2>EMS Dashboard</h2>
+            </div>
+            <nav class="navbar-nav">
+                <button class="nav-link active" data-section="dashboard">Dashboard</button>
+                <button class="nav-link" data-section="employees">Employees</button>
+                <button class="nav-link" data-section="tasks">Tasks</button>
+                <button class="btn btn--outline btn--sm" id="logoutBtn">Logout</button>
+            </nav>
+        </header>
+
+        <!-- Dashboard Section -->
+        <main id="dashboardSection" class="main-content">
+            <div class="container">
+                <h1>Dashboard</h1>
+                
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="totalEmployees">0</h3>
+                        <p>Total Employees</p>
+                        <div class="stat-icon">👥</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="activeEmployees">0</h3>
+                        <p>Active Employees</p>
+                        <div class="stat-icon">✅</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="totalTasks">0</h3>
+                        <p>Total Tasks</p>
+                        <div class="stat-icon">📋</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="pendingTasks">0</h3>
+                        <p>Pending Tasks</p>
+                        <div class="stat-icon">⏳</div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="card mt-32">
+                    <div class="card__header">
+                        <h3>Recent Activities</h3>
+                    </div>
+                    <div class="card__body">
+                        <div id="recentActivities">
+                            <p>Loading activities...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Employees Section -->
+        <main id="employeesSection" class="main-content hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Employee Management</h1>
+                    <button class="btn btn--primary" id="addEmployeeBtn">Add Employee</button>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input type="text" id="employeeSearch" class="form-control" placeholder="Search employees by name, email, or department...">
+                </div>
+
+                <!-- Employee Table -->
+                <div class="card">
+                    <div class="card__body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeTableBody">
+                                    <!-- Employee rows will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Tasks Section -->
+        <main id="tasksSection" class="main-content hidden">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Task Management</h1>
+                    <button class="btn btn--primary" id="addTaskBtn">Add Task</button>
+                </div>
+
+                <!-- Task Table -->
+                <div class="card">
+                    <div class="card__body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Assigned To</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Deadline</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="taskTableBody">
+                                    <!-- Task rows will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Employee Modal -->
+    <div id="employeeModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="employeeModalTitle">Add Employee</h2>
+                <button class="modal-close" id="closeEmployeeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="employeeForm">
+                    <div class="form-group">
+                        <label for="empName" class="form-label">Name</label>
+                        <input type="text" id="empName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empEmail" class="form-label">Email</label>
+                        <input type="email" id="empEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empPhone" class="form-label">Phone</label>
+                        <input type="tel" id="empPhone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empDepartment" class="form-label">Department</label>
+                        <select id="empDepartment" class="form-control" required>
+                            <option value="">Select Department</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="HR">HR</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="empStatus" class="form-label">Status</label>
+                        <select id="empStatus" class="form-control" required>
+                            <option value="">Select Status</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn--secondary" id="cancelEmployeeBtn">Cancel</button>
+                        <button type="submit" class="btn btn--primary" id="saveEmployeeBtn">Save Employee</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="taskModalTitle">Add Task</h2>
+                <button class="modal-close" id="closeTaskModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle" class="form-label">Title</label>
+                        <input type="text" id="taskTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDescription" class="form-label">Description</label>
+                        <textarea id="taskDescription" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskEmployee" class="form-label">Assigned Employee</label>
+                        <select id="taskEmployee" class="form-control" required>
+                            <option value="">Select Employee</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskPriority" class="form-label">Priority</label>
+                        <select id="taskPriority" class="form-control" required>
+                            <option value="">Select Priority</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDeadline" class="form-label">Deadline</label>
+                        <input type="date" id="taskDeadline" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskStatus" class="form-label">Status</label>
+                        <select id="taskStatus" class="form-control" required>
+                            <option value="">Select Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn--secondary" id="cancelTaskBtn">Cancel</button>
+                        <button type="submit" class="btn btn--primary" id="saveTaskBtn">Save Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal hidden">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3 id="confirmTitle">Confirm Action</h3>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Are you sure you want to perform this action?</p>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn--secondary" id="cancelConfirm">Cancel</button>
+                <button type="button" class="btn btn--primary" id="confirmAction">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden">
+        <div class="toast-content">
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
