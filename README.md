@@ -6,10 +6,29 @@ A full-stack web application for managing employees and tasks with a modern UI a
 
 ```
 employee-task-manager/
-├── frontend/                 # Frontend files
-│   ├── index.html           # Main HTML file
-│   ├── style.css            # CSS styles
-│   └── app.js               # Frontend JavaScript
+├── ems-frontend/             # React Frontend (Simplified)
+│   ├── public/
+│   │   └── index.html       # Main HTML template
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   │   ├── auth/
+│   │   │   │   └── LoginForm.js
+│   │   │   ├── dashboard/
+│   │   │   │   ├── DashboardSection.js
+│   │   │   │   └── StatCard.js
+│   │   │   ├── employees/
+│   │   │   │   ├── EmployeeList.js
+│   │   │   │   └── EmployeeModal.js
+│   │   │   ├── tasks/
+│   │   │   │   ├── TaskList.js
+│   │   │   │   └── TaskModal.js
+│   │   │   └── common/
+│   │   │       └── Navbar.js
+│   │   ├── styles/
+│   │   │   └── index.css    # CSS styles
+│   │   ├── App.js           # Main React component
+│   │   └── index.js         # React entry point
+│   └── package.json         # React dependencies
 ├── backend/                  # Backend files
 │   ├── server.js            # Main server file
 │   ├── package.json         # Node.js dependencies
@@ -18,11 +37,13 @@ employee-task-manager/
 │   │   ├── Employee.js      # Employee model
 │   │   ├── Task.js          # Task model
 │   │   └── User.js          # User model
-│   └── routes/              # API routes
-│       ├── auth.js          # Authentication routes
-│       ├── employees.js     # Employee CRUD routes
-│       └── tasks.js         # Task CRUD routes
+│   ├── routes/              # API routes
+│   │   ├── auth.js          # Authentication routes
+│   │   ├── employees.js     # Employee CRUD routes
+│   │   └── tasks.js         # Task CRUD routes
+│   └── seedData.js          # Sample data seeder
 └── README.md                # This file
+
 ```
 
 ## Features
@@ -47,8 +68,12 @@ employee-task-manager/
 cd backend
 npm install
 ```
-
-### 2. Environment Configuration
+### 2. frontend 
+```bash
+cd frontend
+npm start
+```
+### 3. Environment Configuration
 
 The MongoDB connection string is already configured in `backend/config.env`:
 ```
@@ -80,7 +105,7 @@ The backend will run on `http://localhost:5000`
 
 ### 5. Access the Application
 
-Open your browser and navigate to `http://localhost:5000`
+Open your browser and navigate to `http://localhost:3000`for frontend
 
 ## Default Login Credentials
 
@@ -113,9 +138,7 @@ Open your browser and navigate to `http://localhost:5000`
 ## Technologies Used
 
 ### Frontend
-- HTML5
-- CSS3 (with custom design system)
-- Vanilla JavaScript (ES6+)
+React.js
 
 ### Backend
 - Node.js
