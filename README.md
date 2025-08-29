@@ -77,8 +77,7 @@ npm start
 
 The MongoDB connection string is already configured in `backend/config.env`:
 ```
-MONGODB_URI=mongodb+srv://harigami2023:UT2bLD5RfWh1J61E@cluster0.g2vkoh3.mongodb.net/todo_employee_db?retryWrites=true&w=majority&appName=Cluster0
-PORT=5000
+MONGODB_URI=your mongourl 
 JWT_SECRET=your_jwt_secret_key_here
 NODE_ENV=development
 ```
@@ -165,14 +164,4 @@ The application is structured as a monorepo with separate frontend and backend d
 6. **Responsive Design**: Mobile-first responsive design
 7. **Real-time Updates**: UI updates automatically when data changes
 
-## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is open source and available under the MIT License.
